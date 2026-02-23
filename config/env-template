@@ -1,0 +1,29 @@
+# Digital Office Engine — Environment Variables
+# Copy this file to .env and fill in your values
+
+# Telegram (required)
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_ONLY=true
+
+# Anthropic (required)
+ANTHROPIC_API_KEY=
+
+# NanoClaw
+ASSISTANT_NAME=Office
+CONTAINER_IMAGE=digital-office-agent:latest
+MAX_CONCURRENT_CONTAINERS=5
+
+# MCP: Nanobanana
+GEMINI_API_KEY=
+
+# MCP: SearchAPI
+SEARCHAPI_API_KEY=
+
+# MCP: Airtable
+AIRTABLE_API_KEY=
+
+# MCP: Google Drive (path to OAuth credentials JSON)
+GOOGLE_CREDENTIALS_PATH=
+
+# Voice transcription (OpenAI Whisper or Gemini)
+OPENAI_API_KEY=

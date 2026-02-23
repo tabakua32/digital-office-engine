@@ -1,0 +1,29 @@
+{
+  "_comment": "Reference MCP server configs for the engine. Actual .mcp.json is in repo root.",
+  "servers": {
+    "sqlite": {
+      "purpose": "Shared memory database",
+      "required_by": ["all"]
+    },
+    "filesystem": {
+      "purpose": "File operations within allowed paths",
+      "required_by": ["all"]
+    },
+    "airtable": {
+      "purpose": "Task management, content plans, metrics",
+      "required_by": ["marketing", "main"]
+    },
+    "nanobanana": {
+      "purpose": "Image generation via Gemini",
+      "required_by": ["marketing"]
+    },
+    "searchapi": {
+      "purpose": "Web search for research",
+      "required_by": ["marketing", "research"]
+    },
+    "gdrive": {
+      "purpose": "Google Drive sync for output files",
+      "required_by": ["all"]
+    }
+  }
+}

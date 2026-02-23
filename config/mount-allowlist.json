@@ -1,0 +1,16 @@
+{
+  "allowed": [
+    "~/digital-office-engine/groups",
+    "~/digital-office-engine/shared/knowledge-base",
+    "~/digital-office-engine/shared/data"
+  ],
+  "blocked": [
+    ".env",
+    ".ssh",
+    ".gnupg",
+    ".aws",
+    "credentials",
+    "*.key",
+    "store/auth"
+  ]
+}

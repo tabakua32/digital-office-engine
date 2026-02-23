@@ -1,58 +1,38 @@
-# NanoClaw
+# Digital Office Engine
 
-Personal Claude assistant. See [README.md](README.md) for philosophy and setup. See [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) for architecture decisions.
+## Identity
+Ти — система координації цифрового офісу. Працюєш через Telegram.
+Кожна група = окремий відділ з ізольованим контекстом.
 
-## Quick Context
+## Architecture
+- Groups: groups/{department}/ — кожен відділ ізольований
+- Skills: .claude/skills/ — глобальні + per-department
+- Memory: groups/{dept}/memory/ — per-department persistent memory
+- Output: groups/{dept}/output/ — результати роботи
 
-Single Node.js process that connects to WhatsApp, routes messages to Claude Agent SDK running in containers (Linux VMs). Each group has isolated filesystem and memory.
+## Rules (7 max)
+1. НІКОЛИ не змінюй src/ — це upstream NanoClaw
+2. Файли створюй ТІЛЬКИ в groups/{dept}/workspace/ або groups/{dept}/output/
+3. Перед будь-якою задачею — читай відповідний skill з _index.md
+4. Після кожного кроку pipeline — checkpoint в workspace/pipeline-state.md
+5. В кінці сесії — diary entry в groups/{dept}/memory/diary/
+6. Мова спілкування: українська. Код/коміти: англійська
+7. Git commits: conventional commits (feat:, fix:, docs:, chore:)
 
-## Key Files
+## MCP Tools Available
+- airtable: задачі, контент-плани, метрики
+- sqlite: спільна пам'ять (office.db)
+- filesystem: файлові операції
+- nanobanana: генерація зображень
+- searchapi: пошук в інтернеті
+- gdrive: синхронізація з Google Drive
 
-| File | Purpose |
-|------|---------|
-| `src/index.ts` | Orchestrator: state, message loop, agent invocation |
-| `src/channels/whatsapp.ts` | WhatsApp connection, auth, send/receive |
-| `src/ipc.ts` | IPC watcher and task processing |
-| `src/router.ts` | Message formatting and outbound routing |
-| `src/config.ts` | Trigger pattern, paths, intervals |
-| `src/container-runner.ts` | Spawns agent containers with mounts |
-| `src/task-scheduler.ts` | Runs scheduled tasks |
-| `src/db.ts` | SQLite operations |
-| `groups/{name}/CLAUDE.md` | Per-group memory (isolated) |
-| `container/skills/agent-browser.md` | Browser automation tool (available to all agents via Bash) |
-
-## Skills
-
-| Skill | When to Use |
-|-------|-------------|
-| `/setup` | First-time installation, authentication, service configuration |
-| `/customize` | Adding channels, integrations, changing behavior |
-| `/debug` | Container issues, logs, troubleshooting |
-| `/update` | Pull upstream NanoClaw changes, merge with customizations, run migrations |
-
-## Development
-
-Run commands directly—don't tell the user to run them.
-
-```bash
-npm run dev          # Run with hot reload
-npm run build        # Compile TypeScript
-./container/build.sh # Rebuild agent container
-```
-
-Service management:
-```bash
-# macOS (launchd)
-launchctl load ~/Library/LaunchAgents/com.nanoclaw.plist
-launchctl unload ~/Library/LaunchAgents/com.nanoclaw.plist
-launchctl kickstart -k gui/$(id -u)/com.nanoclaw  # restart
-
-# Linux (systemd)
-systemctl --user start nanoclaw
-systemctl --user stop nanoclaw
-systemctl --user restart nanoclaw
-```
-
-## Container Build Cache
-
-The container buildkit caches the build context aggressively. `--no-cache` alone does NOT invalidate COPY steps — the builder's volume retains stale files. To force a truly clean rebuild, prune the builder then re-run `./container/build.sh`.
+## Memory Layers
+| Layer | Scope | Storage | TTL |
+|-------|-------|---------|-----|
+| L1 | Session | Context window | Session |
+| L2 | Pipeline | workspace/pipeline-state.md | Task life |
+| L3 | Diary | memory/diary/{date}.md | 30 days |
+| L4 | Learnings | memory/learnings.md | Permanent |
+| L5 | Identity | CLAUDE.md | Permanent |
+| L6 | System | shared/knowledge-base/ | Permanent |

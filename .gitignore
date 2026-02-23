@@ -1,35 +1,27 @@
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-
-# Local data & auth
-store/
-data/
-logs/
-
-# Groups - only track base structure and specific CLAUDE.md files
-groups/*
-!groups/main/
-!groups/global/
-groups/main/*
-groups/global/*
-!groups/main/CLAUDE.md
-!groups/global/CLAUDE.md
-
 # Secrets
-*.keys.json
-.env
+.env*
+!.env.example
+store/auth/
+
+# Local settings
+.claude/settings.local.json
+
+# Runtime
+data/sessions/
+data/ipc/
+shared/logs/*.log
+node_modules/
 
 # OS
 .DS_Store
+Thumbs.db
 
-# IDE
-.idea/
-.vscode/
+# Workspace temp files
+groups/*/workspace/*.tmp
 
-# Skills system (local per-installation state)
-.nanoclaw/
+# Build
+dist/
 
-agents-sdk-docs
+# NanoClaw runtime
+data/
+!shared/data/
