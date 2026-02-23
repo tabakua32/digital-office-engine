@@ -1,0 +1,32 @@
+applied_skills:
+  - applied_at: 2026-02-23T15:24:41.726Z
+    file_hashes:
+      src/channels/telegram.test.ts: 94f7d507fd275bcdbb123eabf5efc4a83d942d5db8e13cce3a6dca212e2e6c65
+      src/channels/telegram.ts: f627b9cf69739a3cb3e2e280c646e32d5d90ad392f554743a388f46f45811802
+      src/config.ts: 19c175c3f3bdc28c1230e4364debb8d561aa628e482c92ad247ed8181c7f0781
+      src/index.ts: 38300096e17e4c5c9a883bf45eadea68a369782cee912444634667cbe74e9062
+      src/routing.test.ts: 9269a04663c2acb5538a0770d352bf2ae83900af5a54aa9a696ff15e2be9146a
+    name: telegram
+    structured_outcomes:
+      env_additions:
+        - TELEGRAM_BOT_TOKEN
+        - TELEGRAM_ONLY
+      npm_dependencies:
+        grammy: ^1.39.3
+      test: npx vitest run src/channels/telegram.test.ts
+    version: 1.0.0
+  - applied_at: 2026-02-23T15:24:50.375Z
+    file_hashes:
+      src/channels/whatsapp.test.ts: 3afcb0d81c7f1a40ada1737ea64b4d308e6298c8c2713ebddcaa5364ca46d2af
+      src/channels/whatsapp.ts: 8d076e62e52e1399e02c0a17977db2f303fbbdcc57987cfe70b7fbcf016f8bee
+      src/transcription.ts: 397b9df4d9d2297de0c8cccd5a8b72ac084c8244fb8e4bf854c13b8f0f23ca7b
+    name: voice-transcription
+    structured_outcomes:
+      env_additions:
+        - OPENAI_API_KEY
+      npm_dependencies:
+        openai: ^4.77.0
+      test: npx vitest run src/channels/whatsapp.test.ts
+    version: 1.0.0
+core_version: 1.1.0
+skills_system_version: 0.1.0
