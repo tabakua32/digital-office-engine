@@ -1,0 +1,16 @@
+[Unit]
+Description=Digital Office Engine
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/home/deploy/digital-office-engine
+ExecStart=/usr/bin/node dist/index.js
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
+EnvironmentFile=/home/deploy/digital-office-engine/.env
+
+[Install]
+WantedBy=multi-user.target

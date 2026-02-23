@@ -1,3 +1,26 @@
 {
-  "mcpServers": {}
+  "mcpServers": {
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-server-sqlite", "/Users/God_Yurii/digital-office-engine/shared/data/office.db"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/God_Yurii/digital-office-engine"]
+    },
+    "nanobanana": {
+      "command": "uvx",
+      "args": ["nanobanana-mcp-server"],
+      "env": {
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+      }
+    },
+    "searchapi": {
+      "command": "npx",
+      "args": ["-y", "searchapi-mcp-server"],
+      "env": {
+        "SEARCHAPI_API_KEY": "${SEARCHAPI_API_KEY}"
+      }
+    }
+  }
 }

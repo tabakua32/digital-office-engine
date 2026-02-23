@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read(~/digital-office-engine/**)",
+      "Write(~/digital-office-engine/groups/**)",
+      "Write(~/digital-office-engine/shared/**)",
+      "Write(~/digital-office-engine/.claude/**)",
+      "Write(~/digital-office-engine/backups/**)",
+      "Edit(~/digital-office-engine/groups/**)",
+      "Edit(~/digital-office-engine/shared/**)",
+      "Edit(~/digital-office-engine/.claude/**)",
+      "Bash(git *)",
+      "Bash(bun *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(sqlite3 *)",
+      "Bash(rclone *)",
+      "Bash(tsx *)",
+      "mcp__sqlite__*",
+      "mcp__airtable__*",
+      "mcp__filesystem__*",
+      "mcp__nanobanana__*",
+      "mcp__searchapi__*",
+      "mcp__gdrive__*"
+    ],
+    "deny": [
+      "Read(~/digital-office-engine/.env*)",
+      "Write(~/digital-office-engine/src/**)",
+      "Edit(~/digital-office-engine/src/**)",
+      "Bash(rm -rf /*)",
+      "Bash(sudo *)",
+      "Bash(chmod 777 *)"
+    ]
+  },
+  "hooks": {
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/digital-office-engine/.claude/hooks/pre-compact.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/digital-office-engine/.claude/hooks/session-log.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash ~/digital-office-engine/.claude/hooks/git-backup.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
