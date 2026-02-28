@@ -25,3 +25,17 @@ dist/
 # NanoClaw runtime
 data/
 !shared/data/
+
+# Runtime databases
+store/
+*.db-journal
+
+# Container runtime logs
+container/firebase-debug.log
+container/*.log
+
+# Department runtime logs
+groups/*/logs/
+
+# Nested OS metadata
+**/.DS_Store
