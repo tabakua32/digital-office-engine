@@ -43,9 +43,9 @@ sudo systemctl start digital-office
 ```bash
 crontab -e
 # Add:
-*/15 * * * * ~/digital-office-engine/shared/scripts/sync-github.sh >> ~/digital-office-engine/shared/logs/sync.log 2>&1
-0 3 * * * ~/digital-office-engine/shared/scripts/backup-db.sh >> ~/digital-office-engine/shared/logs/backup.log 2>&1
-0 * * * * ~/digital-office-engine/shared/scripts/gdrive-sync.sh >> ~/digital-office-engine/shared/logs/gdrive.log 2>&1
+*/15 * * * * $PROJECT_DIR/shared/scripts/sync-github.sh >> $PROJECT_DIR/shared/logs/sync.log 2>&1
+0 3 * * * $PROJECT_DIR/shared/scripts/backup-db.sh >> $PROJECT_DIR/shared/logs/backup.log 2>&1
+0 * * * * $PROJECT_DIR/shared/scripts/gdrive-sync.sh >> $PROJECT_DIR/shared/logs/gdrive.log 2>&1
 ```
 
 ## Step 6: Verify

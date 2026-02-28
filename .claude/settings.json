@@ -2,14 +2,9 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
-      "Read(~/digital-office-engine/**)",
-      "Write(~/digital-office-engine/groups/**)",
-      "Write(~/digital-office-engine/shared/**)",
-      "Write(~/digital-office-engine/.claude/**)",
-      "Write(~/digital-office-engine/backups/**)",
-      "Edit(~/digital-office-engine/groups/**)",
-      "Edit(~/digital-office-engine/shared/**)",
-      "Edit(~/digital-office-engine/.claude/**)",
+      "Read(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/**)",
+      "Write(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/**)",
+      "Edit(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/**)",
       "Bash(git *)",
       "Bash(bun *)",
       "Bash(npm *)",
@@ -26,9 +21,9 @@
       "mcp__gdrive__*"
     ],
     "deny": [
-      "Read(~/digital-office-engine/.env*)",
-      "Write(~/digital-office-engine/src/**)",
-      "Edit(~/digital-office-engine/src/**)",
+      "Read(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/.env*)",
+      "Write(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/src/**)",
+      "Edit(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/src/**)",
       "Bash(rm -rf /*)",
       "Bash(sudo *)",
       "Bash(chmod 777 *)"
@@ -41,7 +36,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ~/digital-office-engine/.claude/hooks/pre-compact.sh"
+            "command": "bash ~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/.claude/hooks/pre-compact.sh"
           }
         ]
       }
@@ -51,11 +46,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ~/digital-office-engine/.claude/hooks/session-log.sh"
+            "command": "bash ~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/.claude/hooks/session-log.sh"
           },
           {
             "type": "command",
-            "command": "bash ~/digital-office-engine/.claude/hooks/git-backup.sh"
+            "command": "bash ~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/.claude/hooks/git-backup.sh"
           }
         ]
       }

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-REPO_DIR=~/digital-office-engine
-cd "$REPO_DIR"
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$PROJECT_ROOT"
 
 # Pull latest
 git pull origin main --rebase 2>/dev/null || git pull origin main

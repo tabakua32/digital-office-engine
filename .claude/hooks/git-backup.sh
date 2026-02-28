@@ -1,6 +1,7 @@
 #!/bin/bash
 # Stop Hook — auto git backup of working files
-cd ~/digital-office-engine
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$PROJECT_ROOT"
 
 # Only if there are changes in tracked directories
 if [ -n "$(git status --porcelain groups/ shared/ .claude/ 2>/dev/null)" ]; then

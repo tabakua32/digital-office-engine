@@ -1,6 +1,7 @@
 #!/bin/bash
-DB_PATH=~/digital-office-engine/shared/data/office.db
-BACKUP_DIR=~/digital-office-engine/backups
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+DB_PATH="$PROJECT_ROOT/shared/data/office.db"
+BACKUP_DIR="$PROJECT_ROOT/backups"
 mkdir -p "$BACKUP_DIR"
 
 TIMESTAMP=$(date +%Y%m%d)

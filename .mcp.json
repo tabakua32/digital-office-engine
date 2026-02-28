@@ -2,11 +2,11 @@
   "mcpServers": {
     "sqlite": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-server-sqlite", "/Users/God_Yurii/digital-office-engine/shared/data/office.db"]
+      "args": ["-y", "@anthropic-ai/mcp-server-sqlite", "/Users/God_Yurii/Downloads/AI_PROJECT/nanoclow/digital-office-engine/shared/data/office.db"]
     },
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/God_Yurii/digital-office-engine"]
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/God_Yurii/Downloads/AI_PROJECT/nanoclow/digital-office-engine"]
     },
     "nanobanana": {
       "command": "uvx",

@@ -1,8 +1,8 @@
 {
   "allowed": [
-    "~/digital-office-engine/groups",
-    "~/digital-office-engine/shared/knowledge-base",
-    "~/digital-office-engine/shared/data"
+    "~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/groups",
+    "~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/shared/knowledge-base",
+    "~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/shared/data"
   ],
   "blocked": [
     ".env",

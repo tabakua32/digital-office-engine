@@ -37,5 +37,4 @@ container/*.log
 # Department runtime logs
 groups/*/logs/
 
-# Nested OS metadata
-**/.DS_Store
+# Nested OS metadata\n**/.DS_Store\n\n# Tool metadata\n.serena/
