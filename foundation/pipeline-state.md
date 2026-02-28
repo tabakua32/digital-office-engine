@@ -1,44 +1,64 @@
 # Pipeline State — Phase 0
 
 > **Claude: прочитай цей файл + наступну задачу з плану і ПОЧИНАЙ ПРАЦЮВАТИ.**
+> **Якщо задача має CALIBRATE — СПОЧАТКУ ПОСТАВ ПИТАННЯ ЮЗЕРУ, потім працюй.**
 
-**Plan:** `docs/plans/2026-02-28-phase0-tracks-AB-plan.md`
+**Plan:** `docs/plans/2026-02-28-phase0-tracks-AB-plan-v2.md`
 **Design:** `docs/plans/2026-02-28-full-roadmap-design.md`
 
 ---
 
 ## Current Task
 
-**NEXT:** Prerequisites Check (Task 0)
-**Track:** Setup
-**Session:** —
+**NEXT:** INV-1 — Full inventory scan
+**Phase:** 0.1 INVENTORY
 **Status:** NOT STARTED
 
 ---
 
 ## Progress
 
-| Task | Status | Output File | Session | Date |
-|------|--------|-------------|---------|------|
-| Prerequisites | NOT STARTED | — | — | — |
-| A1: Anthropic Platform | NOT STARTED | `foundation/analysis/anthropic_platform_analysis.md` | — | — |
-| A2: System Prompts | NOT STARTED | `foundation/analysis/system_prompt_analysis.md` | — | — |
-| A3: Skills Ecosystem | NOT STARTED | `foundation/analysis/skills_ecosystem_analysis.md` | — | — |
-| A4: Competitive Prompts | NOT STARTED | `foundation/analysis/competitive_analysis.md` | — | — |
-| A5: Meta Synthesis v2 | NOT STARTED | `foundation/analysis/meta_synthesis_v2.md` | — | — |
-| A6: Business Requirements | NOT STARTED | `foundation/analysis/business_requirements_synthesis.md` | — | — |
-| B1: TypeScript Platform | NOT STARTED | `foundation/analysis/typescript_platform_analysis.md` | — | — |
-| B2: Telegram Platform | NOT STARTED | `foundation/analysis/telegram_platform_analysis.md` | — | — |
-| B3: External Ecosystem | NOT STARTED | `foundation/analysis/external_ecosystem_analysis.md` | — | — |
+### Phase 0.1 — Inventory
+| Task | Status | Output | Date |
+|------|--------|--------|------|
+| INV-1: Full scan | NOT STARTED | `foundation/inventory.md` | — |
 
-## Merge Readiness
-- [ ] Track A complete (A1-A6)
-- [ ] Track B complete (B1-B3)
-- [ ] Cross-check passed
+### Phase 0.2 — Evaluate (each starts with CALIBRATE)
+| Task | Status | Output | Date |
+|------|--------|--------|------|
+| EVAL-TG: Telegram | NOT STARTED | `foundation/harvest/telegram_integrations.md` | — |
+| EVAL-MKT: Marketing skills | NOT STARTED | `foundation/harvest/marketing_skills.md` | — |
+| EVAL-SKILLS: Claude skills | NOT STARTED | `foundation/harvest/claude_skills_format.md` | — |
+| EVAL-SDK: Anthropic platform | NOT STARTED | `foundation/harvest/anthropic_platform_rules.md` | — |
+| EVAL-MCP: MCP servers | NOT STARTED | `foundation/harvest/mcp_servers_assessment.md` | — |
+| EVAL-YAKO: YAKOMANДА | NOT STARTED | `foundation/harvest/yakomanda_building_blocks.md` | — |
+| EVAL-REPORTS: Previous analysis | NOT STARTED | `foundation/harvest/reports_validation.md` | — |
+
+### Phase 0.3 — Synthesize
+| Task | Status | Output | Date |
+|------|--------|--------|------|
+| SYN-1: Cross-synthesis | NOT STARTED | `foundation/meta_synthesis_v2.md` + standard + taxonomy | — |
+| SYN-2: Build factory | NOT STARTED | `nanoclaw-skill-factory/` | — |
+| SYN-3: Validate factory | NOT STARTED | 3-5 test artifacts | — |
+
+### Phase 0.4 — Production
+| Task | Status | Output | Date |
+|------|--------|--------|------|
+| PROD-TG | NOT STARTED | `skills/communication/telegram/` | — |
+| PROD-MKT | NOT STARTED | `skills/marketing/` | — |
+| PROD-TECH | NOT STARTED | `skills/dev-ops/` | — |
+| PROD-META | NOT STARTED | `skills/meta/` | — |
+
+### Final
+| Task | Status | Output | Date |
+|------|--------|--------|------|
+| FINAL-1: Integration | NOT STARTED | Working NanoClaw | — |
+| FINAL-2: E2E testing | NOT STARTED | Production-ready | — |
 
 ---
 
 ## Notes for Next Session
-- User must load 5 data sources into context_doc/ before Prerequisites
-- Track B (B1-B3) can run parallel with Track A
-- Each task: read plan section → execute → update THIS file → commit
+- EVAL tasks can run in parallel (2-3 at a time)
+- Each EVAL starts with CALIBRATE questions — DO NOT SKIP
+- User must load 5 data sources before starting (see Prerequisites in design doc)
+- If context filling up mid-task: summarize → commit WIP → continue next session
