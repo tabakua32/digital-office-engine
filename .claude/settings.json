@@ -13,23 +13,62 @@
       "Bash(sqlite3 *)",
       "Bash(rclone *)",
       "Bash(tsx *)",
+      "Bash(tsc *)",
+      "Bash(vitest *)",
+      "Bash(prettier *)",
+      "Bash(gh *)",
+      "Bash(cd *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(echo *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(touch *)",
+      "Bash(wc *)",
+      "Bash(date *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(grep *)",
+      "Bash(find *)",
+      "Bash(which *)",
+      "Bash(tree *)",
       "mcp__sqlite__*",
       "mcp__airtable__*",
       "mcp__filesystem__*",
       "mcp__nanobanana__*",
       "mcp__searchapi__*",
-      "mcp__gdrive__*"
+      "mcp__gdrive__*",
+      "mcp__context7__*",
+      "mcp__serena__*",
+      "mcp__Claude_Preview__*",
+      "mcp__Claude_in_Chrome__*",
+      "mcp__playwright__*",
+      "mcp__claude-mem__*"
     ],
     "deny": [
       "Read(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/.env*)",
       "Write(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/src/**)",
       "Edit(~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/src/**)",
-      "Bash(rm -rf /*)",
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)",
       "Bash(sudo *)",
       "Bash(chmod 777 *)"
     ]
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/.claude/hooks/protect-critical.sh"
+          }
+        ]
+      }
+    ],
     "PreCompact": [
       {
         "matcher": "",
@@ -37,6 +76,16 @@
           {
             "type": "command",
             "command": "bash ~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/.claude/hooks/pre-compact.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/Downloads/AI_PROJECT/nanoclow/digital-office-engine/.claude/hooks/notify.sh"
           }
         ]
       }

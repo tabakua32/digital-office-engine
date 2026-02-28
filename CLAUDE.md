@@ -13,6 +13,7 @@ Each group = an isolated department with its own context.
 ## Architecture
 - Groups: groups/{department}/ — each department is isolated
 - Skills: .claude/skills/ — global + per-department
+- Plugin skills: .claude/skills/_index.md § "Plugin Skills" (invoke via Skill tool)
 - Memory: groups/{dept}/memory/ — per-department persistent memory
 - Output: groups/{dept}/output/ — work results
 - Architecture specs: docs/architecture/README.md — 7 phases, ~500KB
