@@ -6,7 +6,31 @@
 
 **Architecture:** Two parallel tracks. Track A runs sequentially (A1→A6) because each step builds on previous. Track B (B1-B3) is independent and can run in a parallel session. Both produce analysis documents into `foundation/analysis/`. Quality gates verify completeness before merge.
 
-**Tech Stack:** Markdown documents, Claude analysis capabilities, existing context_doc library, Analysis_reports_md for validation.
+****Tech Stack:** Markdown documents, Claude analysis capabilities, existing context_doc library, Analysis_reports_md for validation.
+
+**CRITICAL — Context Window Management:**
+
+context_doc/ = 37,956 files, 1GB. Claude context = ~200K tokens (~600KB text).
+NEVER read all files. Use 3-layer funnel:
+
+1. **INDEX** (~1%): `ls` + README.md + package.json per directory
+2. **FILTER** (~5%): grep keywords, select relevant files only
+3. **READ** (~0.5%): read only filtered files, max ~30 files per task
+
+Per-task budgets:
+| Task | Source dir | Index first | Max files to read |
+|------|-----------|-------------|-------------------|
+| A1 | claude_agent_sdk/, claude_api_docs/, antropic_docs/ | ls + README | ~30 |
+| A2 | claude_skills/claude_system_promts/ | ls | ~15 |
+| A3 | claude_skills/ (all) | ls + _index.md | ~40 |
+| A4 | context_doc/ (competitor prompts) | grep "manus\|cursor\|bolt" | ~15 |
+| A5 | foundation/analysis/ (own outputs) | direct | 6 (A1-A4 + 7 reports) |
+| A6 | My_skill_and_insite/ | ls | ~10 |
+| B1 | typescript_docs/, src/ | ls + types | ~25 |
+| B2 | Telegram_all/ (5385 files!) | ls top-level, then Bot API only | ~30 |
+| B3 | marketing_skills_repo/ (28K files!) | ls top-level, README per repo | ~40 |
+
+If approaching context limit mid-task: summarize findings so far, commit WIP, continue in next session.
 
 **Design Doc:** `docs/plans/2026-02-28-full-roadmap-design.md` — source of truth for scope.
 
@@ -162,7 +186,7 @@ Create `foundation/analysis/anthropic_platform_analysis.md` with this skeleton:
 
 **Step 2: Read and analyze SDK documentation**
 
-Read all files in `../docs/context_doc/claude_agent_sdk/`. Extract:
+INDEX first: `ls ../docs/context_doc/claude_agent_sdk/` then read README/docs only. Extract:
 - Container architecture details
 - IPC protocol specification
 - Tool system mechanics
@@ -172,7 +196,7 @@ Fill sections 1.1-1.3.
 
 **Step 3: Read and analyze API documentation**
 
-Read all files in `../docs/context_doc/claude_api_docs/`. Extract:
+INDEX first: `ls ../docs/context_doc/claude_api_docs/` then read docs/guides only (skip examples, tests). Extract:
 - Model specifications (context, output, pricing)
 - API feature details
 - Rate limits and constraints
@@ -181,7 +205,7 @@ Fill sections 2.1-2.3.
 
 **Step 4: Read and analyze Cookbooks**
 
-Read key files in `../docs/context_doc/antropic_docs/claude-cookbooks-main/`. Extract:
+INDEX: `ls ../docs/context_doc/antropic_docs/claude-cookbooks-main/` then grep for pattern/best-practice files, read max 10 most relevant. Extract:
 - Recommended patterns with code examples
 - Anti-patterns and common mistakes
 
@@ -189,7 +213,7 @@ Fill section 3.
 
 **Step 5: Analyze NanoClaw source (read-only)**
 
-Read key files in `src/` to understand runtime. Map:
+INDEX: `ls src/` then read only entry point (index.ts), channel files, and type definitions. Max ~15 files. Map:
 - How skills are loaded and executed
 - Channel integration (Telegram flow)
 - Container runner mechanics
@@ -298,7 +322,7 @@ git commit -m "docs(phase0): A1 — Anthropic platform analysis"
 
 **Step 2: Analyze system prompt files**
 
-Read all files in both system prompt directories. Map what Claude "knows" vs "needs to learn".
+INDEX: `ls` both directories, then read only .md/.txt prompt files (skip images, configs). Max ~15 files total. Map what Claude "knows" vs "needs to learn".
 
 **Step 3: Compare with existing report**
 
@@ -325,8 +349,8 @@ git commit -m "docs(phase0): A2 — system prompt analysis"
 **Depends on:** A1, A2 (need platform + prompt understanding).
 
 **Files:**
-- Read: `../docs/context_doc/claude_skills/` (68 skills, plugins, connectors)
-- Read: `../docs/context_doc/antropic_docs/skills-main 2/`
+- Read: `../docs/context_doc/claude_skills/` (2320 files! INDEX: ls top-level, then read SKILL.md/README per category, max ~30 files)
+- Read: `../docs/context_doc/antropic_docs/skills-main 2/` (INDEX: ls, read key skill definitions only)
 - Read: `.claude/skills/_index.md` (our skill catalog)
 - Read: `foundation/analysis/anthropic_platform_analysis.md` (A1)
 - Read: `foundation/analysis/system_prompt_analysis.md` (A2)
@@ -659,7 +683,7 @@ git commit -m "docs(phase0): A6 — business requirements synthesis (YAKOMANДА
 ### Task B1: TypeScript Platform Analysis (~1 session)
 
 **Files:**
-- Read: `../docs/context_doc/typescript_docs/` (all files)
+- Read: `../docs/context_doc/typescript_docs/` (INDEX first: ls, read handbook + lib types only, max ~20 files)
 - Read: `src/` (NanoClaw source, read-only)
 - Create: `foundation/analysis/typescript_platform_analysis.md`
 
@@ -744,9 +768,9 @@ git commit -m "docs(phase0): B1 — TypeScript platform analysis"
 ### Task B2: Telegram Platform Analysis (~1 session)
 
 **Files:**
-- Read: `../docs/context_doc/telegram_api/` (Bot API 9.3)
-- Read: `../docs/context_doc/telegram_mtproto/` (GramJS)
-- Read: `../docs/context_doc/Telegram_all/` (additional TG docs)
+- Read: `../docs/context_doc/telegram_api/` (INDEX first: ls, read core API docs only, max ~20 files)
+- Read: `../docs/context_doc/telegram_mtproto/` (INDEX first: ls, read key docs, max ~10 files)
+- Read: `../docs/context_doc/Telegram_all/` (5385 files! INDEX: ls top-level only, then grep for "bot api" docs, max ~15 files)
 - Create: `foundation/analysis/telegram_platform_analysis.md`
 
 **Step 1: Define analysis template**
@@ -793,7 +817,14 @@ git commit -m "docs(phase0): B1 — TypeScript platform analysis"
 ## 5. Висновки для Skill Factory
 ```
 
-**Step 2-5: Full Bot API mapping + MTProto analysis**
+****Step 2-5: Bot API mapping + MTProto analysis**
+
+CONTEXT BUDGET: Telegram_all has 5385 files. DO NOT read all.
+- `ls` top-level dirs to understand structure
+- Focus on Bot API reference docs (methods, types)
+- Skip: examples, test files, changelogs, translations
+- Use grep to find specific method docs when needed
+- Max ~30 files total for this task**
 
 **Step 6: Quality gate**
 
@@ -854,7 +885,13 @@ git commit -m "docs(phase0): B2 — Telegram platform analysis"
 ## 5. Висновки для Skill Factory
 ```
 
-**Step 2-4: Catalog external resources**
+****Step 2-4: Catalog external resources**
+
+CONTEXT BUDGET: marketing_skills_repo has 28,671 files (604MB). DO NOT read all.
+- `ls` top-level repos to get names
+- Read ONLY README.md + SKILL.md per repo (max 2 files per repo)
+- Use grep to find specific patterns across repos
+- Max ~40 files total for this task**
 
 **Step 5: Quality gate**
 
