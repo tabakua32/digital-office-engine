@@ -2,9 +2,9 @@
 
 ## Quick Start
 1. Read this file + MEMORY.md for cross-session context
-2. Check groups/{dept}/memory/learnings.md for insights
+2. **If Phase 0:** read `foundation/pipeline-state.md` → do NEXT task → update state → commit
 3. Find matching skill from .claude/skills/_index.md before any task
-4. Architecture: docs/architecture/README.md (7 phases, ~500KB)
+4. Plans: `docs/plans/` — design doc + implementation plan
 
 ## Identity
 You are the Digital Office Engine coordinator. You operate via Telegram.
